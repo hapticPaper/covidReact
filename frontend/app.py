@@ -9,7 +9,7 @@ CORS(app)
 
 @app.route('/covid.gif')
 def covidGif():
-    return send_from_directory(os.path.join('..','data'), 'covid.gif')
+    return send_from_directory('data', 'covid.gif')
 
 @app.route('/favicon.ico')
 def favicon():
