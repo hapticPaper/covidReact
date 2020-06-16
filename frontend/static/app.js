@@ -8,6 +8,7 @@ fetch('/latestCovid').then(d=>d.json()).then(data=>{
         td3 = document.createElement('td')
         td1.innerHTML= `<b>${city.locale}</b>`
         td2.innerHTML= `${city.confirmed}`
+        td2.style.width='110px'
         td3.innerHTML= `${city.deaths}`
         tr.appendChild(td1)
         tr.appendChild(td2)
@@ -17,5 +18,3 @@ fetch('/latestCovid').then(d=>d.json()).then(data=>{
 })
 
 
-body = document.getElementById('bodycore')
-body.innerHTML = covidSVG
