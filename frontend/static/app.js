@@ -15,3 +15,7 @@ fetch('/latestCovid').then(d=>d.json()).then(data=>{
         tbl.appendChild(tr);
     });
 })
+
+
+body = document.getElementById('bodycore')
+body.innerHTML = covidSVG
