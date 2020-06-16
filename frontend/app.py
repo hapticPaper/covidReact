@@ -1,7 +1,7 @@
 from flask import Flask, render_template, send_from_directory, request
 from flask_cors import CORS
 from sqlalchemy import create_engine
-from queries import sqlite_metrics as Q
+from frontend.queries import sqlite_metrics as Q
 import os 
 
 app = Flask(__name__)
