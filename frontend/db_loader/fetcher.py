@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from frontend.db_loader.lite_loader import *
 import logging as l
 
-DB_PATH = '../data/db/'
+DB_PATH = 'frontend/data/db/'
 DB_FILE = 'covid.sqlite'
 os.makedirs(DB_PATH, exist_ok=True)
 ENG = create_engine(f'sqlite:///{os.path.join(DB_PATH, DB_FILE)}')
