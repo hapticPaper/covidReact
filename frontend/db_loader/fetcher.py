@@ -15,7 +15,7 @@ sched = BlockingScheduler()
 @sched.scheduled_job('interval', minutes=2)
 def updateSqlite():
     results = fetchCovidData(ENG)
-    l.info(f'results: {results[:2]}')
+    print(f'results: {results[:2]}')
 
 # @sched.scheduled_job('cron', day_of_week='mon-fri', hour=17)
 # def scheduled_job():
