@@ -12,7 +12,7 @@ def covidGif():
     return send_from_directory(os.path.join('..','data'), 'covid.gif')
 
 @app.route('/favicon.ico')
-def covidGif():
+def favicon():
     return send_from_directory('static', 'favicon.ico')
 
     
