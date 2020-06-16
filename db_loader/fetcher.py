@@ -2,6 +2,7 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 import os, requests, datetime
 from sqlalchemy import create_engine
 from db_loader.lite_loader import *
+import logging as l
 
 DB_PATH = './data/db/'
 DB_FILE = 'covid.sqlite'
@@ -14,7 +15,7 @@ sched = BlockingScheduler()
 @sched.scheduled_job('interval', minutes=2)
 def updateSqlite():
     results = fetchCovidData(ENG)
-    print(f'results: {results[:2]}')
+    l.info(f'results: {results[:2]}')
 
 # @sched.scheduled_job('cron', day_of_week='mon-fri', hour=17)
 # def scheduled_job():

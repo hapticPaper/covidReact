@@ -1,10 +1,15 @@
-import requests, json
+import requests, json, datetime
 from db_loader.fieldmappings import mappings
 import logging as l
 
 
 def exeSql(engine, sql):
     return engine.execute(sql)
+
+DATES=f"""SELECT distinct date(lastupdate) date from  us_daily where date(lastUpdate) is not null order by 1"""
+dt = datetime.datetime.today() #(2020,4,9)
+DT = dt.strftime('%Y%m%d') #'20200322' #
+DATEY = dt.strftime('%Y-%m-%d')
 
 
 def GET_COLUMNS(line):
