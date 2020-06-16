@@ -2,7 +2,6 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 import os, requests, datetime
 from sqlalchemy import create_engine
 from frontend.db_loader.lite_loader import *
-import logging as l
 
 DB_PATH = 'frontend/data/db/'
 DB_FILE = 'covid.sqlite'
@@ -12,7 +11,7 @@ ENG = create_engine(f'sqlite:///{os.path.join(DB_PATH, DB_FILE)}')
 
 sched = BlockingScheduler()
 
-@sched.scheduled_job('interval', minutes=2)
+@sched.scheduled_job('interval', minutes=20)
 def updateSqlite():
     results = fetchCovidData(ENG)
     print(f'results: {results[:2]}')
