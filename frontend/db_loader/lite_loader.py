@@ -1,6 +1,7 @@
 import requests, json, datetime
-from db_loader.fieldmappings import mappings
+from frontend.db_loader.fieldmappings import mappings
 import logging as l
+
 
 
 def exeSql(engine, sql):

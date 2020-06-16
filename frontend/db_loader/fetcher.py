@@ -1,7 +1,7 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 import os, requests, datetime
 from sqlalchemy import create_engine
-from db_loader.lite_loader import *
+from frontend.db_loader.lite_loader import *
 import logging as l
 
 DB_PATH = '../data/db/'
