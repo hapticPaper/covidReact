@@ -26,9 +26,20 @@ function loadpage(){
 
 
 function init(){
+    resieImgs()
     loadpage()
     setInterval(loadpage, 5000)
     
 }
 
 init()
+
+
+function resieImgs() {
+    r = document.getElementById('cvimg')
+    r.width=window.innerWidth*0.3
+    r = document.getElementById('cvgif')
+    r.width=window.innerWidth*0.45
+  }
+  
+  window.onresize = resieImgs;
