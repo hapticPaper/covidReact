@@ -1,4 +1,4 @@
-import requests, json, datetime, pandas
+import requests, json, datetime, pandas, time
 try:
     from frontend.db_loader.fieldmappings import mappings
 except:
@@ -46,6 +46,7 @@ def writeMongo(data, table):
     cdata.confirmed_cases = cdata.confirmed_cases.astype('int',  errors='ignore')
     cdata.probable_deaths = cdata.probable_deaths.astype('int',  errors='ignore')
     cdata.probable_cases = cdata.probable_cases.astype('int',  errors='ignore')
+    cdata.refreshed = time.time()
     return insertMany(json.loads(cdata.to_json(orient='records')), table)
 
 
