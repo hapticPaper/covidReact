@@ -14,7 +14,6 @@
 
  .container-fluid{
      z-index: 1;
-     position:fixed;
  }
  @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
  @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
