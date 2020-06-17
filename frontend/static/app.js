@@ -1,4 +1,4 @@
-fetch('/latestCovid').then(d=>d.json()).then(data=>{
+setInterval(fetch('/atlasCovid').then(d=>d.json()).then(data=>{
     tbl = document.getElementById('statsTable')
     tbl.innerHTML="<thead><tr><th>Locale</th><th>Confirmed</th><th>Deaths</th></thead>"
     data.results.forEach(city => { 
@@ -15,6 +15,6 @@ fetch('/latestCovid').then(d=>d.json()).then(data=>{
         tr.appendChild(td3)
         tbl.appendChild(tr);
     });
-})
+}), 5);
 
 
