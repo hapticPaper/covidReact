@@ -9,11 +9,13 @@ os.makedirs(DB_PATH, exist_ok=True)
 ENG = create_engine(f'sqlite:///{os.path.join(DB_PATH, DB_FILE)}')
 
 
+IMG_PATH = 'frontend/'
+
 sched = BlockingScheduler()
 
 @sched.scheduled_job('interval', minutes=20)
 def updateSqlite():
-    results = fetchCovidData(ENG)
+    results = fetchCovidData()
     print(f'results: {results[:2]}')
 
 # @sched.scheduled_job('cron', day_of_week='mon-fri', hour=17)
