@@ -6,3 +6,4 @@ sqlalchemy
 gunicorn
 pymongo
 dnspython
+pandas

@@ -1,4 +1,4 @@
-import requests, json, datetime
+import requests, json, datetime, pandas
 try:
     from frontend.db_loader.fieldmappings import mappings
 except:
@@ -39,8 +39,14 @@ UPDATE daily SET combinedkey = replace(replace(case
   """
 def writeMongo(data, table):
     fields = data[0].split(",")
-    ds = [dict(zip(fields, d.split(","))) for d in data[1:]]
-    return insertMany(ds, table)
+    cdata = pandas.DataFrame([dict(zip(fields, d.split(","))) for d in data[1:]])
+    cdata.deaths = cdata.deaths.astype('int',  errors='ignore')
+    cdata.cases = cdata.cases.astype('int',  errors='ignore')
+    cdata.confirmed_deaths = cdata.confirmed_deaths.astype('int',  errors='ignore')
+    cdata.confirmed_cases = cdata.confirmed_cases.astype('int',  errors='ignore')
+    cdata.probable_deaths = cdata.probable_deaths.astype('int',  errors='ignore')
+    cdata.probable_cases = cdata.probable_cases.astype('int',  errors='ignore')
+    return insertMany(json.loads(cdata.to_json(orient='records')), table)
 
 
 
