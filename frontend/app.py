@@ -29,8 +29,9 @@ def latestCovid():
 
 @app.route('/atlasCovid')
 def atlasCovid():
-    data = mongoCovid.daily.find().sort('cases' ,-1 )[:50]
-    return {'results':[{ 'locale':f"{r['county']}, {r['state']}", 'confirmed':r['cases'], 'deaths':r['deaths']} for r in data]}
+    data = mongoCovid.daily.find().sort('cases' ,-1 )[:25]
+    dt = mongoCovid.daily.find_one()['refreshed']
+    return {'refreshed':dt,'results':[{ 'locale':f"{r['countryRegion']}, {r['provincestate']}", 'cases':r['cases'], 'deaths':r['deaths']} for r in data]}
 
 
 @app.route('/favicon.ico')

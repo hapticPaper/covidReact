@@ -38,15 +38,15 @@ UPDATE daily SET combinedkey = replace(replace(case
   WHERE combinedkey is null;
   """
 def writeMongo(data, table):
-    fields = data[0].split(",")
+    fields = [mappings[i] for i in data[0].split(",")]
     cdata = pandas.DataFrame([dict(zip(fields, d.split(","))) for d in data[1:]])
-    cdata.deaths = cdata.deaths.astype('int',  errors='ignore')
-    cdata.cases = cdata.cases.astype('int',  errors='ignore')
-    cdata.confirmed_deaths = cdata.confirmed_deaths.astype('int',  errors='ignore')
-    cdata.confirmed_cases = cdata.confirmed_cases.astype('int',  errors='ignore')
-    cdata.probable_deaths = cdata.probable_deaths.astype('int',  errors='ignore')
-    cdata.probable_cases = cdata.probable_cases.astype('int',  errors='ignore')
-    cdata.refreshed = time.time()
+    cdata.deaths = pandas.to_numeric(cdata.deaths)
+    cdata.cases = pandas.to_numeric(cdata.cases)
+    cdata.confirmed_deaths = pandas.to_numeric(cdata.confirmed_deaths)
+    cdata.confirmed_cases = pandas.to_numeric(cdata.confirmed_cases)
+    cdata.probable_deaths = pandas.to_numeric(cdata.probable_deaths)
+    cdata.probable_cases = pandas.to_numeric(cdata.probable_cases)
+    cdata['refreshed'] = time.time()
     return insertMany(json.loads(cdata.to_json(orient='records')), table)
 
 
