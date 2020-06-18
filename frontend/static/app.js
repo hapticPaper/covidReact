@@ -28,7 +28,7 @@ function loadpage(){
 function init(){
     resieImgs()
     loadpage()
-    setInterval(loadpage, 5000)
+    setInterval(loadpage, 15000)
     
 }
 
