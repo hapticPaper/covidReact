@@ -3,16 +3,18 @@ function makeTable(){
     updateTotals()
     fetch('/atlasCovid').then(d=>d.json()).then(data=>{
         tbl = document.getElementById('statsTable')
-        tbl.innerHTML="<thead><tr><th>Locale</th><th>Confirmed</th><th>Deaths</th></thead>"
+        tbl.innerHTML="<thead><tr><th>Locale</th><th class='rightd'>Confirmed</th><th class='rightd'>Deaths</th></thead>"
         data.results.forEach(city => { 
             tr = document.createElement('tr')
             td1 = document.createElement('td')
             td2 = document.createElement('td')
             td3 = document.createElement('td')
+            td2.setAttribute("class", "rightd");
+            td3.setAttribute("class", "rightd");
             td1.innerHTML= `<b>${city.locale}</b>`
-            td2.innerHTML= `${city.cases}`
+            td2.innerHTML= `${city.cases.toLocaleString()}`
             td2.style.width='110px'
-            td3.innerHTML= `${city.deaths}`
+            td3.innerHTML= `${city.deaths.toLocaleString()}`
             tr.appendChild(td1)
             tr.appendChild(td2)
             tr.appendChild(td3)
@@ -28,7 +30,7 @@ function makeTable(){
 function updateTotals(){
     fetch('/usTotal').then(d=>d.json()).then(data=>{
         tdiv = document.getElementById('usTotal')
-        tdiv.innerHTML = `<b>Total Cases: ${data.results[0].cases.toLocaleString()}<br>Total Deaths: ${data.results[0].deaths.toLocaleString()}</b>`
+        tdiv.innerHTML = `<b>US Cases: ${data.results[0].cases.toLocaleString()}<br>US Deaths: ${data.results[0].deaths.toLocaleString()}</b>`
     })
 }
 function init(){

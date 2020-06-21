@@ -11,10 +11,21 @@
     -moz-animation:spin 8s linear infinite;
     animation:spin 8s linear infinite;
  }
+ @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+ @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+ @keyframes spin { 100% { transform:rotate(360deg);    }     }
+
+ thead{
+     font-size: 1.8rem;
+ }
+ #usTotal{
+     font-size: 1.5rem;
+ }
+ .rightd{
+     text-align: right;
+ }
 
  .container-fluid{
      z-index: 1;
  }
- @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
- @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
- @keyframes spin { 100% { transform:rotate(360deg);    }     }
+ 
