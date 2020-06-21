@@ -1,0 +1,2 @@
+clock: python db_loader/fetcher.py
+web: python frontend/app:app runserver 0.0.0.0:5000

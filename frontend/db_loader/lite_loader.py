@@ -101,24 +101,30 @@ def trunctate(engine):
 
     """)
 
-
-
-def fetchCovidData(engine=None):
-    resp = requests.get('https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us-counties.csv')
+def loadMongoCSV(resp,mongoObj, truncate=True):
     try:
-        data = resp.content.decode("utf8").replace("\r","").replace("'","").split("\n")
-        if engine:
-            trunctate(engine)
-            insertFile(data, engine)
-            exeSql(engine, UPDATE_KEY)
-        
-        truncateMongo(mongoCovid.daily)
-        writes = writeMongo(data, mongoCovid.daily)
+        data = resp.content.decode("utf8").replace("\r","").replace("'","").split("\n")   
+
+        if truncate:
+             truncateMongo(mongoObj)
+        writes = writeMongo(data, mongoObj)
         print(f"Mongo writes: {len(writes.inserted_ids)}")
         return data or resp.status_code
     except Exception as e:
-        print(f"Somethign failed - {e}")
+            print(f"Somethign failed - {e}")
+            return e
+
+def getUsTotals():
+    resp = requests.get('https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us.csv')
+    loadMongoCSV(resp, mongoCovid.usTotal)
+
+
+def fetchCountyData():
+    resp = requests.get('https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us-counties.csv')
+    loadMongoCSV(resp, mongoCovid.daily)
+    
 
 
 if __name__=='__main__':
-    fetchCovidData()
+    fetchCountyData()
+    getUsTotals()

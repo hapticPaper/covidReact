@@ -27,6 +27,14 @@ def latestCovid():
     data = exeSql(ENG, Q['latestCovid'])
     return {'results':[{ 'locale':locale, 'confirmed':confirmed, 'deaths':deaths} for locale, confirmed, deaths in data]}
 
+@app.route('/usTotal')
+def usTotal():
+    data = mongoCovid.usTotal.find().sort('cases' ,-1 )[:25]
+    dt = mongoCovid.daily.find_one()['refreshed']
+    return {'refreshed':dt,'results':[{ 'cases':r['cases'], 'deaths':r['deaths']} for r in data]}
+
+
+
 @app.route('/atlasCovid')
 def atlasCovid():
     data = mongoCovid.daily.find().sort('cases' ,-1 )[:25]
@@ -44,4 +52,4 @@ def index():
     return render_template('/index.html')
 
 if __name__=='__main__':
-    app.run(threaded=True, port=os.environ['PORT'])
+    app.run(threaded=True, debug=True, host=os.getenv('HOST','::'), port=os.getenv('PORT',5005))
