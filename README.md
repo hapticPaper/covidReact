@@ -1,1 +1,1 @@
-# covidReact
+# visualCovid
