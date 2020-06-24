@@ -121,7 +121,8 @@ def getUsTotals():
 
 def fetchCountyData():
     resp = requests.get('https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us-counties.csv')
-    loadMongoCSV(resp, mongoCovid.daily)
+    data = loadMongoCSV(resp, mongoCovid.daily)
+    return data
     
 
 
