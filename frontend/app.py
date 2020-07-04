@@ -17,14 +17,10 @@ app = Flask(__name__)
 CORS(app)
 
 
-DB_PATH = 'frontend/data/db/'
-DB_FILE = 'covid.sqlite'
-ENG = create_engine(f'sqlite:///{os.path.join(DB_PATH, DB_FILE)}')
-
-@app.route('/latestCovid')
-def latestCovid():
-    data = exeSql(ENG, Q['latestCovid'])
-    return {'results':[{ 'locale':locale, 'confirmed':confirmed, 'deaths':deaths} for locale, confirmed, deaths in data]}
+# @app.route('/latestCovid')
+# def latestCovid():
+#     data = exeSql(ENG, Q['latestCovid'])
+#     return {'results':[{ 'locale':locale, 'confirmed':confirmed, 'deaths':deaths} for locale, confirmed, deaths in data]}
 
 @app.route('/usTotal')
 def usTotal():
