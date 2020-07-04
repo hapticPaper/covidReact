@@ -42,10 +42,13 @@ def writeMongo(data, table):
     cdata = pandas.DataFrame([dict(zip(fields, d.split(","))) for d in data[1:]])
     cdata.deaths = pandas.to_numeric(cdata.deaths)
     cdata.cases = pandas.to_numeric(cdata.cases)
-    cdata.confirmed_deaths = pandas.to_numeric(cdata.confirmed_deaths)
-    cdata.confirmed_cases = pandas.to_numeric(cdata.confirmed_cases)
-    cdata.probable_deaths = pandas.to_numeric(cdata.probable_deaths)
-    cdata.probable_cases = pandas.to_numeric(cdata.probable_cases)
+    try:
+        cdata.confirmed_deaths = pandas.to_numeric(cdata.confirmed_deaths)
+        cdata.confirmed_cases = pandas.to_numeric(cdata.confirmed_cases)
+        cdata.probable_deaths = pandas.to_numeric(cdata.probable_deaths)
+        cdata.probable_cases = pandas.to_numeric(cdata.probable_cases)
+    except Exception as e:
+        print(f"Field not found - {e}")
     cdata['refreshed'] = time.time()
     return insertMany(json.loads(cdata.to_json(orient='records')), table)
 
@@ -121,11 +124,19 @@ def getUsTotals():
 
 def fetchCountyData():
     resp = requests.get('https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us-counties.csv')
-    data = loadMongoCSV(resp, mongoCovid.daily)
+    data = loadMongoCSV(resp, mongoCovid.counties)
     return data
-    
+
+def fetchDailyData():
+    resp = requests.get('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv')
+    loadMongoCSV(resp, mongoCovid.daily)
+    with open('daily.csv','w') as d:
+        d.write(resp.content.decode('latin-1'))
+    df = pandas.read_csv('daily.csv', sep=',')
+    return df
 
 
 if __name__=='__main__':
-    fetchCountyData()
-    getUsTotals()
+    #fetchCountyData()
+    #getUsTotals()
+    fetchDailyData()

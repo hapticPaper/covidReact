@@ -37,8 +37,8 @@ def usTotal():
 
 @app.route('/atlasCovid')
 def atlasCovid():
-    data = mongoCovid.daily.find().sort('cases' ,-1 )[:25]
-    dt = mongoCovid.daily.find_one()['refreshed']
+    data = mongoCovid.counties.find().sort('cases' ,-1 )[:25]
+    dt = mongoCovid.counties.find_one()['refreshed']
     return {'refreshed':dt,'results':[{ 'locale':f"{r['countryRegion']}, {r['provincestate']}", 'cases':r['cases'], 'deaths':r['deaths']} for r in data]}
 
 
@@ -50,6 +50,10 @@ def favicon():
 @app.route('/')
 def index():
     return render_template('/index.html')
+
+@app.route('/heat')
+def heat():
+    return render_template('/covidHeat.html')
 
 if __name__=='__main__':
     app.run(threaded=True, debug=True, host=os.getenv('HOST','::'), port=os.getenv('PORT',5005))
