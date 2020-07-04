@@ -62,4 +62,15 @@ function resieImgs() {
     r.width=window.innerWidth*0.45
   }
   
-  window.onresize = resieImgs;
+  
+window.onresize = resieImgs;
+
+function switchImg(){
+    im = document.getElementById("cvgif")
+    if (document.getElementById('log_check').getAttribute('checked')==true){
+        im.setAttribute('src', 'static/covid.gif')
+    }
+    else{
+        im.setAttribute('src', 'static/covid_no_adjust.gif')
+    }
+}

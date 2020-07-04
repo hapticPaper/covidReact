@@ -129,7 +129,7 @@ def fetchCountyData():
 
 def fetchDailyData():
     resp = requests.get('https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv')
-    loadMongoCSV(resp, mongoCovid.daily)
+    
     with open('daily.csv','w') as d:
         d.write(resp.content.decode('latin-1'))
     df = pandas.read_csv('daily.csv', sep=',')
@@ -140,3 +140,8 @@ if __name__=='__main__':
     #fetchCountyData()
     #getUsTotals()
     fetchDailyData()
+
+
+
+    sdf['combinedKey'] = sdf['county']+", "+sdf['state']
+    {d:sdf.loc[sdf.date==d][['combinedKey', 'cases', 'deaths']].to_dict('records') for d in sorted(set(sdf['date']))}

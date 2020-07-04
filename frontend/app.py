@@ -17,11 +17,6 @@ app = Flask(__name__)
 CORS(app)
 
 
-# @app.route('/latestCovid')
-# def latestCovid():
-#     data = exeSql(ENG, Q['latestCovid'])
-#     return {'results':[{ 'locale':locale, 'confirmed':confirmed, 'deaths':deaths} for locale, confirmed, deaths in data]}
-
 @app.route('/usTotal')
 def usTotal():
     data = mongoCovid.usTotal.find().sort('cases' ,-1 )[:25]
@@ -29,12 +24,13 @@ def usTotal():
     return {'refreshed':dt,'results':[{ 'cases':r['cases'], 'deaths':r['deaths']} for r in data]}
 
 
-
 @app.route('/atlasCovid')
 def atlasCovid():
     data = mongoCovid.counties.find().sort('cases' ,-1 )[:25]
     dt = mongoCovid.counties.find_one()['refreshed']
     return {'refreshed':dt,'results':[{ 'locale':f"{r['countryRegion']}, {r['provincestate']}", 'cases':r['cases'], 'deaths':r['deaths']} for r in data]}
+
+
 
 
 @app.route('/favicon.ico')

@@ -45,13 +45,22 @@
 
             <div class="row">
                 <div class="col-6" style="text-align: center;">
-                    <img src='static/covid.gif' id='cvgif' alt="Covid Time Lapse">
+                    <img src='static/covid.gif' id='cvgif' alt="Covid Time Lapse"><br>
+                    <span style="float: ;">                    
+                        <input type="checkbox" class="form-check-input" id="log_check" checked=True onchange="switchImg()">
+                    </span>
+                    <span style="float: center;">
+
+                        Log(x)*sqrt(x) bubbles
+                    </span>
+                    <br>
+                    <br>
+                    <div id='usTotal'></div>
+                    <br>
                     <div>
                         <span>Last Refresh</span>
                         <span id='lastRefresh'></span>
                     </div>
-                    <br><br>
-                    <div id='usTotal'></div>
                 </div>
                 <div class="col-6">
                     <table id="statsTable" style="width:700px"></table>
