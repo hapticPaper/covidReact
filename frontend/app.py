@@ -1,6 +1,5 @@
 from flask import Flask, render_template, send_from_directory, request
 from flask_cors import CORS
-from sqlalchemy import create_engine
 try:
     from frontend.queries import sqlite_metrics as Q
     from frontend.db_loader.lite_loader import exeSql
