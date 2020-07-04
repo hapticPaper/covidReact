@@ -1,12 +1,10 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 import os, requests, datetime
-from sqlalchemy import create_engine
 from frontend.db_loader.lite_loader import *
 
 DB_PATH = 'frontend/data/db/'
 DB_FILE = 'covid.sqlite'
 os.makedirs(DB_PATH, exist_ok=True)
-ENG = create_engine(f'sqlite:///{os.path.join(DB_PATH, DB_FILE)}')
 
 
 IMG_PATH = 'frontend/'
