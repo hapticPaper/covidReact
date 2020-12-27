@@ -139,7 +139,7 @@ def fetchDailyData():
 if __name__=='__main__':
     #fetchCountyData()
     #getUsTotals()
-    fetchDailyData()
+    sdf=fetchDailyData()
 
 
 
